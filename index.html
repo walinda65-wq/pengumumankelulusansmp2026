@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengumuman Kelulusan - SMP SWASTA TEKNOLOGI</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-heading { font-family: 'Playfair Display', serif; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.3); } 50% { box-shadow: 0 0 40px rgba(255,215,0,0.6); } }
+        @keyframes confetti-fall { 0% { transform: translateY(-100%) rotate(0deg); opacity: 1; } 100% { transform: translateY(100%) rotate(720deg); opacity: 0; } }
+        .animate-fade-in { animation: fadeInUp 0.8s ease forwards; }
+        .animate-delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .animate-delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .animate-delay-3 { animation-delay: 0.6s; opacity: 0; }
+        .pulse-glow { animation: pulse-glow 2s infinite; }
+        .confetti-piece { position: fixed; width: 10px; height: 10px; top: -10px; animation: confetti-fall linear forwards; pointer-events: none; z-index: 9999; }
+        .countdown-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+        .result-card { background: linear-gradient(135deg, #1a237e 0%, #00008B 50%, #0d47a1 100%); }
+        .notification { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10000; padding: 12px 24px; border-radius: 8px; color: white; font-weight: 600; animation: fadeInUp 0.3s ease; }
+        .notification-error { background: #dc2626; }
+        .notification-warning { background: #f59e0b; }
+    </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full" style="background-color: #00008B;">
+  <div id="app" class="h-full w-full overflow-auto"><!-- Landing Page -->
+   <div id="landing-page" class="min-h-full w-full flex flex-col items-center justify-center px-4 py-8 text-center" style="background: linear-gradient(180deg, #00005a 0%, #00008B 40%, #000070 100%);"><!-- Decorative elements -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none" style="opacity:0.05;">
+     <div class="absolute top-10 left-10 w-32 h-32 border border-white rounded-full"></div>
+     <div class="absolute bottom-20 right-10 w-48 h-48 border border-white rounded-full"></div>
+     <div class="absolute top-1/3 right-1/4 w-20 h-20 border border-white rotate-45"></div>
+    </div>
+    <div class="relative z-10 max-w-2xl mx-auto"><img src="https://iili.io/BprJ3qx.png" alt="Logo SMP Swasta Teknologi" class="w-28 h-28 mx-auto mb-6 animate-fade-in object-contain" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='rgba(255,255,255,0.1)'; this.style.borderRadius='50%'; this.alt='Logo';">
+     <h1 class="font-heading text-3xl md:text-5xl font-900 text-white mb-3 animate-fade-in animate-delay-1" id="title-text">PENGUMUMAN KELULUSAN</h1>
+     <p class="text-lg md:text-xl text-blue-200 mb-1 animate-fade-in animate-delay-2" id="year-text">Tahun Pelajaran 2025/2026</p>
+     <p class="text-xl md:text-2xl text-yellow-300 font-bold mb-2 animate-fade-in animate-delay-2" id="school-text">SMP SWASTA TEKNOLOGI</p>
+     <p class="text-sm md:text-lg text-blue-300 font-semibold mb-8 animate-fade-in animate-delay-2 tracking-wider">📋 PENGUMUMAN RESMI</p><!-- Countdown -->
+     <div id="countdown-section" class="mb-8 animate-fade-in animate-delay-3">
+      <p class="text-blue-200 text-sm mb-3 uppercase tracking-widest">Hitung Mundur Pengumuman</p>
+      <div class="flex justify-center gap-3 md:gap-4">
+       <div class="countdown-box rounded-xl p-3 md:p-4 min-w-[70px]">
+        <div id="cd-days" class="text-2xl md:text-3xl font-bold text-white">
+         00
+        </div>
+        <div class="text-xs text-blue-300 mt-1">
+         Hari
+        </div>
+       </div>
+       <div class="countdown-box rounded-xl p-3 md:p-4 min-w-[70px]">
+        <div id="cd-hours" class="text-2xl md:text-3xl font-bold text-white">
+         00
+        </div>
+        <div class="text-xs text-blue-300 mt-1">
+         Jam
+        </div>
+       </div>
+       <div class="countdown-box rounded-xl p-3 md:p-4 min-w-[70px]">
+        <div id="cd-minutes" class="text-2xl md:text-3xl font-bold text-white">
+         00
+        </div>
+        <div class="text-xs text-blue-300 mt-1">
+         Menit
+        </div>
+       </div>
+       <div class="countdown-box rounded-xl p-3 md:p-4 min-w-[70px]">
+        <div id="cd-seconds" class="text-2xl md:text-3xl font-bold text-white">
+         00
+        </div>
+        <div class="text-xs text-blue-300 mt-1">
+         Detik
+        </div>
+       </div>
+      </div>
+     </div><!-- Input Section -->
+     <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/20 animate-fade-in animate-delay-3">
+      <h2 class="text-white font-bold text-lg mb-4">🔍 Cek Kelulusan Anda</h2>
+      <div class="space-y-4">
+       <div><label class="block text-left text-blue-200 text-sm mb-1">NISN</label> <input type="text" id="input-nisn" placeholder="Masukkan NISN Anda" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white placeholder-blue-300 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30 transition">
+       </div>
+       <div><label class="block text-left text-blue-200 text-sm mb-1">Tanggal Lahir</label> <input type="date" id="input-tgl" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/30 text-white focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30 transition">
+       </div><button id="btn-check" class="w-full py-3 bg-yellow-500 hover:bg-yellow-400 text-blue-900 font-bold rounded-lg transition pulse-glow mt-2 flex items-center justify-center gap-2"> <i data-lucide="search" style="width:18px;height:18px;"></i> CEK KELULUSAN </button>
+      </div>
+      <p id="loading-text" class="text-blue-200 text-sm mt-3 hidden">⏳ Memuat data...</p>
+     </div>
+    </div><!-- Footer -->
+    <footer class="relative z-10 mt-12 text-blue-300 text-xs md:text-sm text-center opacity-70">
+     <p>© 2026 SMP SWASTA TEKNOLOGI</p>
+     <p class="mt-1">Jika mengalami kendala akses, silakan hubungi wali kelas atau panitia sekolah.</p>
+    </footer>
+   </div><!-- Result Page -->
+   <div id="result-page" class="min-h-full w-full hidden flex-col items-center justify-center px-4 py-8" style="background: linear-gradient(180deg, #00005a 0%, #00008B 40%, #000070 100%);">
+    <div class="max-w-lg w-full mx-auto text-center"><!-- Success Result -->
+     <div id="result-success" class="hidden">
+      <div class="text-6xl mb-4">
+       🎓
+      </div>
+      <h2 class="font-heading text-3xl md:text-4xl text-yellow-300 font-bold mb-6 animate-fade-in">SELAMAT! Anda dinyatakan LULUS.</h2>
+      <div class="result-card rounded-2xl p-6 md:p-8 text-left border border-white/20 shadow-2xl animate-fade-in animate-delay-1">
+       <div class="space-y-3">
+        <div class="flex justify-between border-b border-white/10 pb-2"><span class="text-blue-300 text-sm">NISN</span> <span class="text-white font-semibold" id="res-nisn"></span>
+        </div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span class="text-blue-300 text-sm">Nama Siswa</span> <span class="text-white font-semibold" id="res-nama"></span>
+        </div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span class="text-blue-300 text-sm">NIS</span> <span class="text-white font-semibold" id="res-nis"></span>
+        </div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span class="text-blue-300 text-sm">Tanggal Lahir</span> <span class="text-white font-semibold" id="res-tgl"></span>
+        </div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span class="text-blue-300 text-sm">Jenis Kelamin</span> <span class="text-white font-semibold" id="res-jk"></span>
+        </div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span class="text-blue-300 text-sm">Nama Orang Tua</span> <span class="text-white font-semibold" id="res-ortu"></span>
+        </div>
+        <div class="flex justify-between pt-2"><span class="text-blue-300 text-sm">Status</span> <span class="text-green-400 font-bold text-lg" id="res-status">✅ LULUS</span>
+        </div>
+       </div>
+      </div>
+      <div class="mt-6 bg-white/10 rounded-xl p-5 border border-white/10 animate-fade-in animate-delay-2">
+       <p class="text-blue-100 italic text-sm leading-relaxed">💬 "Lulus SMP bukanlah akhir, tapi gerbang menuju petualangan yang lebih seru. Ilmu yang kau bawa dari SMP akan jadi bekal penting untuk masa depanmu. Jangan berhenti di sini, kamu punya potensi besar untuk terus berkembang"</p>
+      </div>
+     </div><!-- Not Found Result -->
+     <div id="result-fail" class="hidden">
+      <div class="text-6xl mb-4">
+       🚫
+      </div>
+      <h2 class="font-heading text-2xl md:text-3xl text-red-400 font-bold mb-4">NISN tidak ditemukan.</h2>
+      <p class="text-blue-200">Silakan periksa kembali atau hubungi wali kelas.</p>
+     </div><button id="btn-back" class="mt-8 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg border border-white/20 transition inline-flex items-center gap-2"> <i data-lucide="arrow-left" style="width:18px;height:18px;"></i> Kembali </button>
+    </div>
+    <footer class="mt-12 text-blue-300 text-xs md:text-sm text-center opacity-70">
+     <p>© 2026 SMP SWASTA TEKNOLOGI</p>
+     <p class="mt-1">Jika mengalami kendala akses, silakan hubungi wali kelas atau panitia sekolah.</p>
+    </footer>
+   </div>
+  </div><!-- Notification container -->
+  <div id="notification-container"></div>
+  <script>
+        // Config
+        const defaultConfig = {
+            school_name: 'SMP SWASTA TEKNOLOGI',
+            graduation_year: '2025/2026',
+            background_color: '#00008B',
+            text_color: '#ffffff',
+            accent_color: '#eab308',
+            surface_color: '#1a237e',
+            secondary_action_color: '#93c5fd'
+        };
+
+        let studentsData = [];
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXQdPIBXeGrzrVyc2WsLH5rSzWaTZd7jrhiCPLE_yMHAfqEzyQgz0jYC_RKu62HQ/pub?gid=1789323003&single=true&output=csv';
+
+        // Countdown target - 19 Mei 2026 08:00 WITA
+        const announcementDate = new Date('2026-05-19T08:00:00');
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = announcementDate - now;
+            const isAnnounced = diff <= 0;
+            
+            if (isAnnounced) {
+                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-hours').textContent = '00';
+                document.getElementById('cd-minutes').textContent = '00';
+                document.getElementById('cd-seconds').textContent = '00';
+                // Unlock the check button
+                document.getElementById('btn-check').disabled = false;
+                document.getElementById('btn-check').style.opacity = '1';
+                document.getElementById('btn-check').style.cursor = 'pointer';
+                document.getElementById('input-nisn').disabled = false;
+                document.getElementById('input-tgl').disabled = false;
+            } else {
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+                document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+                document.getElementById('cd-minutes').textContent = String(m).padStart(2, '0');
+                document.getElementById('cd-seconds').textContent = String(s).padStart(2, '0');
+                // Lock the check button
+                document.getElementById('btn-check').disabled = true;
+                document.getElementById('btn-check').style.opacity = '0.5';
+                document.getElementById('btn-check').style.cursor = 'not-allowed';
+                document.getElementById('input-nisn').disabled = true;
+                document.getElementById('input-tgl').disabled = true;
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Notification
+        function showNotification(msg, type) {
+            const container = document.getElementById('notification-container');
+            const el = document.createElement('div');
+            el.className = `notification notification-${type}`;
+            el.textContent = msg;
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 3000);
+        }
+
+        // Parse CSV
+        function parseCSV(text) {
+            const lines = text.split('\n').filter(l => l.trim());
+            const data = [];
+            for (let i = 1; i < lines.length; i++) {
+                const cols = parseCSVLine(lines[i]);
+                if (cols.length >= 7) {
+                    data.push({
+                        nama: cols[0]?.trim() || '',
+                        nis: cols[1]?.trim() || '',
+                        jk: cols[2]?.trim() || '',
+                        nisn: cols[3]?.trim() || '',
+                        tgl_lahir: cols[4]?.trim() || '',
+                        ortu: cols[5]?.trim() || '',
+                        status: cols[6]?.trim() || ''
+                    });
+                }
+            }
+            return data;
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const ch = line[i];
+                if (ch === '"') { inQuotes = !inQuotes; }
+                else if (ch === ',' && !inQuotes) { result.push(current); current = ''; }
+                else { current += ch; }
+            }
+            result.push(current);
+            return result;
+        }
+
+        // Fetch data
+        async function fetchData() {
+            try {
+                const res = await fetch(CSV_URL);
+                const text = await res.text();
+                studentsData = parseCSV(text);
+            } catch (e) {
+                console.error('Fetch error:', e);
+            }
+        }
+        fetchData();
+
+        // Confetti
+        function launchConfetti() {
+            const colors = ['#eab308', '#22c55e', '#3b82f6', '#ef4444', '#a855f7', '#f97316'];
+            for (let i = 0; i < 80; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+                piece.style.animationDelay = Math.random() * 2 + 's';
+                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                piece.style.width = (6 + Math.random() * 8) + 'px';
+                piece.style.height = (6 + Math.random() * 8) + 'px';
+                document.body.appendChild(piece);
+                setTimeout(() => piece.remove(), 5000);
+            }
+        }
+
+        // Normalize date for comparison
+        function normalizeDate(dateStr) {
+            if (!dateStr) return '';
+            // Try parsing various formats
+            const d = new Date(dateStr);
+            if (!isNaN(d.getTime())) {
+                return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+            }
+            // Try DD/MM/YYYY or DD-MM-YYYY
+            const parts = dateStr.split(/[\/\-]/);
+            if (parts.length === 3) {
+                if (parts[0].length === 4) return `${parts[0]}-${parts[1].padStart(2,'0')}-${parts[2].padStart(2,'0')}`;
+                return `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+            }
+            return dateStr;
+        }
+
+        // Check
+        document.getElementById('btn-check').addEventListener('click', function() {
+            const nisn = document.getElementById('input-nisn').value.trim();
+            const tgl = document.getElementById('input-tgl').value.trim();
+
+            if (!nisn || !tgl) {
+                showNotification('⚠️ Harap isi NISN dan Tanggal Lahir!', 'warning');
+                return;
+            }
+
+            if (studentsData.length === 0) {
+                showNotification('⏳ Data belum dimuat, silakan coba lagi.', 'error');
+                fetchData();
+                return;
+            }
+
+            const normalizedInput = normalizeDate(tgl);
+            const found = studentsData.find(s => s.nisn === nisn && normalizeDate(s.tgl_lahir) === normalizedInput);
+
+            document.getElementById('landing-page').classList.add('hidden');
+            document.getElementById('result-page').classList.remove('hidden');
+            document.getElementById('result-page').style.display = 'flex';
+
+            if (found && found.status.toUpperCase().includes('LULUS')) {
+                document.getElementById('result-success').classList.remove('hidden');
+                document.getElementById('result-fail').classList.add('hidden');
+                document.getElementById('res-nisn').textContent = found.nisn;
+                document.getElementById('res-nama').textContent = found.nama;
+                document.getElementById('res-nis').textContent = found.nis;
+                document.getElementById('res-tgl').textContent = found.tgl_lahir;
+                document.getElementById('res-jk').textContent = found.jk;
+                document.getElementById('res-ortu').textContent = found.ortu;
+                document.getElementById('res-status').textContent = '✅ ' + found.status;
+                launchConfetti();
+            } else {
+                document.getElementById('result-success').classList.add('hidden');
+                document.getElementById('result-fail').classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('btn-back').addEventListener('click', function() {
+            document.getElementById('result-page').classList.add('hidden');
+            document.getElementById('result-page').style.display = '';
+            document.getElementById('landing-page').classList.remove('hidden');
+        });
+
+        // Element SDK
+        window.elementSdk.init({
+            defaultConfig,
+            onConfigChange: async (config) => {
+                const school = config.school_name || defaultConfig.school_name;
+                const year = config.graduation_year || defaultConfig.graduation_year;
+                document.getElementById('school-text').textContent = school;
+                document.getElementById('year-text').textContent = 'Tahun Pelajaran ' + year;
+            },
+            mapToCapabilities: (config) => ({
+                recolorables: [
+                    { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+                    { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+                    { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+                    { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+                    { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+                ],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            }),
+            mapToEditPanelValues: (config) => new Map([
+                ['school_name', config.school_name || defaultConfig.school_name],
+                ['graduation_year', config.graduation_year || defaultConfig.graduation_year]
+            ])
+        });
+
+        lucide.createIcons();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fdb8f36c2424083',t:'MTc3OTExNDYyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
